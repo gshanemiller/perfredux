@@ -1,0 +1,13 @@
+#!/bin/bash -x
+
+if [[ "$1" == "" ]]
+then
+  echo "usage: inst <test1|test2|test3>"
+  exit 2
+fi
+
+echo 0 > /proc/sys/kernel/nmi_watchdog
+perf stat -A -o ${1}.perf --cpu=3 -e cycles,instructions,branches,branch-misses -e cycle_activity.cycles_mem_any,cycle_activity.stalls_mem_any,longest_lat_cache.miss,cycle_activity.cycles_l3_miss,LLC-load-misses ./${1}.tsk
+echo 1 > /proc/sys/kernel/nmi_watchdog
+
+cat ${1}.perf
