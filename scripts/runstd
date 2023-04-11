@@ -6,6 +6,6 @@ then
   exit 2
 fi
 
-perf stat -A -o ${1}.perf --cpu=3 -d ./${1}.tsk
-
-cat ${1}.perf
+echo 0 > /proc/sys/kernel/nmi_watchdog
+perf stat -A --all-user -o ${1}.perf --cpu=3 -d ./${1}.tsk
+echo 1 > /proc/sys/kernel/nmi_watchdog

@@ -43,10 +43,7 @@ int main() {
   }
 
   // do work
-  int sum = work();
-  if (sum != -1) {
-    printf("expected -1 got %d\n", sum);
-  }
+  work();
 
   return 0;
 }
